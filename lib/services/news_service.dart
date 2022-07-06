@@ -20,11 +20,9 @@ class NewsService {
     return NewsModel.fromJson(response.data).data!;
   }
 
-  Future<DetailData?> getNewsDetail(int idNews) async {
-    final response = await _dio.get(
-      '$kApiEndPoint/$idNews',
-    );
+  Future<DetailData> getNewsDetail(int idNews) async {
+    final response = await _dio.get('$kApiEndPoint/$idNews');
 
-    return DetailData.fromJson(response.data);
+    return NewsDetailModel.fromJson(response.data).data!;
   }
 }

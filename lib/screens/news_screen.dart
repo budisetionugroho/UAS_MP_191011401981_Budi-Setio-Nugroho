@@ -11,9 +11,7 @@ class NewsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        toolbarHeight: 100,
-        title: Text('191011401981_Budi Setio Nugroho',style: TextStyle(color: Colors.black),),
-
+        title:  Text('191011401981_Budi Setio Nugroho', style: TextStyle(color: Colors.indigo),),
       ),
       body: Consumer<NewsProvider>(
         builder: (context, newsProvider, child) {
@@ -28,14 +26,15 @@ class NewsScreen extends StatelessWidget {
                     return Card(
                       child: GestureDetector(
                         onTap: () {
-                          navigateDetailScreen(
-                              newsProvider, newsProvider.newsModel[index].id!);
+                          newsProvider.toggleLoading();
+                          newsProvider.fetchNewsDetail(
+                              newsProvider.newsModel[index].id!);
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NewsDetailScreen(
-                                      title: newsProvider
-                                          .newsDetailModel!.title!)));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NewsDetailScreen(),
+                            ),
+                          );
                         },
                         child: Row(
                           children: [
@@ -43,7 +42,7 @@ class NewsScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Image.network(
                                 newsProvider.newsModel[index].image!,
-                                width: 100,
+                                width: 80,
                               ),
                             ),
                             Flexible(
@@ -59,7 +58,7 @@ class NewsScreen extends StatelessWidget {
                                     Text(
                                       newsProvider.newsModel[index].title!,
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.w300,
+                                        fontWeight: FontWeight.w500,
                                         fontSize: 18.0,
                                       ),
                                     ),
@@ -88,10 +87,5 @@ class NewsScreen extends StatelessWidget {
         },
       ),
     );
-  }
-
-  navigateDetailScreen(NewsProvider recipeProvider, int recipeId) async {
-    recipeProvider.toggleLoading();
-    await recipeProvider.fetchNewsDetail(recipeId);
   }
 }
