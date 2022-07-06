@@ -6,12 +6,12 @@ import 'package:news_app/services/news_service.dart';
 class NewsProvider extends ChangeNotifier {
   final NewsService _newsService = NewsService();
   late List<Data> _newsModel;
-  late DetailData? _newsDetailModel;
+  late DetailData _newsDetailModel;
   late bool _loading = true;
 
   bool get loading => _loading;
   List<Data> get newsModel => _newsModel;
-  DetailData? get newsDetailModel => _newsDetailModel;
+  DetailData get newsDetailModel => _newsDetailModel;
 
   NewsProvider() {
     _fetchNews();
@@ -24,8 +24,8 @@ class NewsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  fetchNewsDetail(int idRecipe) async {
-    _newsDetailModel = await _newsService.getNewsDetail(idRecipe);
+  fetchNewsDetail(int idNews) async {
+    _newsDetailModel = await _newsService.getNewsDetail(idNews);
     toggleLoading();
     notifyListeners();
   }
